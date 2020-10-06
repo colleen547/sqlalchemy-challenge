@@ -121,10 +121,6 @@ def tripstart(start):
     session = Session(engine)
 
     # go back one year from start date and go to end of data for Min/Avg/Max temp   
-    start_date= dt.datetime.strptime(start, '%Y-%m-%d')
-    last_year = dt.timedelta(days=365)
-    start = start_date - last_year
-    end =  dt.date(2017, 8, 23)
     trip_data = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
         filter(Measurement.date >= start).filter(Measurement.date <= end).all()
 
@@ -140,11 +136,6 @@ def tripend(start,end):
     session = Session(engine)
 
     # go back one year from start/end date and get Min/Avg/Max temp     
-    start_date= dt.datetime.strptime(start, '%Y-%m-%d')
-    end_date= dt.datetime.strptime(end,'%Y-%m-%d')
-    last_year = dt.timedelta(days=365)
-    start = start_date - last_year
-    end = end_date - last_year
     trip_data = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
         filter(Measurement.date >= start).filter(Measurement.date <= end).all()
 
